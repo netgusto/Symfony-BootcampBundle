@@ -1,0 +1,34 @@
+{
+    "name": "symfony/bootcamp-bundle",
+    "version": "1.0.0",
+    "type": "symfony-bundle",
+    "description": "Symfony2 BootCamp Bundle",
+    "keywords": ["symfony", "bootcamp", "paas"],
+    "homepage": "https://github.com/netgusto/Symfony-BootCampBundle",
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Net Gusto",
+          "email": "contact@netgusto.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "~2.4",
+        "netgusto/autoroute-bundle": "1.0.1",
+        "netgusto/devserver-bundle": "1.1.0",
+        "netgusto/webvendor-bundle": "1.0.0",
+        "netgusto/parametertouch-bundle": "1.0.1",
+        "brianium/habitat": "v1.0.0"
+    },
+    "require-dev": {
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-0": { "Symfony\\BootCampBundle": "" }
+    },
+    "target-dir": "Symfony/BootCampBundle",
+    "extra": {
+    }
+}

@@ -1,0 +1,3 @@
+parameters:
+    bootcamp.init.user.username: admin
+    bootcamp.init.user.password: password

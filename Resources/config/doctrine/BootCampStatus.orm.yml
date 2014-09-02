@@ -1,0 +1,16 @@
+Symfony\BootCampBundle\Entity\BootCampStatus:
+    type: entity
+    table: ~
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+        configuredversion:
+            type: string
+            length: 32
+            nullable: false
+
+    lifecycleCallbacks: {  }
