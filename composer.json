@@ -1,6 +1,6 @@
 {
     "name": "symfony/bootcamp-bundle",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "symfony-bundle",
     "description": "Symfony2 BootCamp Bundle",
     "keywords": ["symfony", "bootcamp", "paas"],
@@ -15,10 +15,8 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/framework-bundle": "~2.4",
-        "netgusto/autoroute-bundle": "1.0.1",
-        "netgusto/devserver-bundle": "1.1.0",
-        "netgusto/webvendor-bundle": "1.0.0",
-        "netgusto/parametertouch-bundle": "1.0.1",
+        "doctrine/migrations": "dev-master",
+        "doctrine/doctrine-migrations-bundle": "dev-master",
         "brianium/habitat": "v1.0.0"
     },
     "require-dev": {
