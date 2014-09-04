@@ -4,8 +4,32 @@
         "symfony/bootcamp-bundle": "1.0.1",
         "brianium/habitat": "v1.0.0",
         "doctrine/migrations": "dev-master",
-        "doctrine/doctrine-migrations-bundle": "dev-master"   
+        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "netgusto/parametertouch-bundle": "1.0.1"
+    },
+    "extra": {
+        "touch-parameters": [
+            {
+                "src": "app/config/defaults/data.parameters.dist.yml",
+                "dest": "data/parameters.yml"
+            },
+            {
+                "src": "app/config/defaults/data.environment.dist.yml",
+                "dest": "data/environment.yml"
+            }
+        ]
     }
+
+.gitignore:
+    
+    remove lines:
+
+        /app/config/parameters.yml
+
+    add lines:
+
+        /data/*
+        !data/.gitkeep
 
 > app/AppKernel.php:
 
@@ -46,8 +70,7 @@
             
             DATABASE_URL: sqlite://%kernel.root_dir%/../data/database.db?absolute
 
-
-> data/environment.yml:
+> app/config/defaults/data.environment.dist.yml:
     
     parameters:
         environment.user:
@@ -57,9 +80,9 @@
             # Valid drivers are: mysql://, mssql://, postgres:// and sqlite://
             # ####
 
-            # DATABASE_URL: mysql://root:@127.0.0.1/baikal2bootcamp
+            # DATABASE_URL: mysql://user:password@hostname/dbname
 
-> data/parameters.yml:
+> app/config/defaults/data.parameters.dist.yml:
     
     parameters:
 
@@ -233,16 +256,22 @@
 
     services:
 
+        appname.bootcamp.configinithandler:
+            class: AppName\BootCampBundle\InitHandler\ConfigInitHandler
+            arguments:
+                - @doctrine.orm.entity_manager
+
         appname.bootcamp.userinithandler:
             class: AppName\BootCampBundle\InitHandler\UserInitHandler
             arguments:
                 - @doctrine.orm.entity_manager
                 - @security.encoder_factory
 
-        appname.bootcamp.configinithandler:
-            class: AppName\BootCampBundle\InitHandler\ConfigInitHandler
+        security.encoder_factory:
+            class: Symfony\Component\Security\Core\Encoder\EncoderFactory
+            public: false
             arguments:
-                - @doctrine.orm.entity_manager
+                - []
 
 > AppName/BootCampBundle/InitHandler/ConfigInitHandler.php
     
