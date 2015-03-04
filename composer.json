@@ -1,9 +1,9 @@
 {
     "name": "symfony/bootcamp-bundle",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "type": "symfony-bundle",
     "description": "Symfony2 BootCamp Bundle",
-    "keywords": ["symfony", "bootcamp", "paas"],
+    "keywords": ["symfony", "bootcamp", "paas", "heroku", "scalingo"],
     "homepage": "https://github.com/netgusto/Symfony-BootCampBundle",
     "license": "MIT",
     "authors": [

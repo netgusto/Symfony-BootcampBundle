@@ -14,7 +14,13 @@ class PlatformDetectorHelper {
             return new Platform\HerokuPlatform();
         }
 
-        # TODO: detect AppsDeck
+        if(array_key_exists('SCALINGO_MYSQL_URL', $env) || array_key_exists('SCALINGO_POSTGRESQL_URL', $env)) {
+            return new Platform\ScalingoPlatform();
+        }
+
+        if(array_key_exists('DATABASE_URL', $env)) {
+            return new Platform\GenericPAASPlatform();
+        }
 
         return new Platform\ClassicPlatform();
     }
