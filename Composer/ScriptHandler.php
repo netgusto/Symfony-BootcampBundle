@@ -171,7 +171,7 @@ final class ScriptHandler {
                 $initialize = false;
                 $alreadyconfiguredthisversion = false;
 
-                $currentversion = $versions[array_pop(array_keys($version))];
+                $currentversion = $versions[array_pop(array_keys($versions))];
 
                 foreach($versions as $version) {
                     if($version->getConfiguredVersion() === $appversion) {
