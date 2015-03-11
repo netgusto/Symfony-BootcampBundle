@@ -169,22 +169,24 @@ final class ScriptHandler {
             if(count($versions) > 0) {
 
                 $initialize = false;
+                $alreadyconfiguredthisversion = false;
 
                 $currentversion = $versions[array_pop(array_keys($version))];
 
-                if(!in_array($appversion, $versions)) {
-                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $currentversion->getConfiguredVersion() . "), but packaged version is different (version: " . $appversion . "). Application will be migrated, but not initialized.</info>");
-                } else {
+                foreach($versions as $version) {
+                    if($version->getConfiguredVersion() === $appversion) {
+                        $alreadyconfiguredthisversion = true;
+                        break;
+                    }
+                }
+
+                if($alreadyconfiguredthisversion) {
                     $migrate = false;
-                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $currentversion->getConfiguredVersion() . "); database will not be touched.</info>");
+                    $io->write("<info><comment>✔</comment> The application is already initialized and configured for the packaged version (" . $currentversion->getConfiguredVersion() . "); database will not be touched.</info>");
+                } else {
+                    $io->write("<info><comment>✔</comment> The application is already initialized and configured (version: " . $currentversion->getConfiguredVersion() . "), but packaged version is different (version: " . $appversion . "). Application will be migrated, but not initialized.</info>");
                 }
             }
-        } else {
-
-            # The BootCampStatus table is not found
-            # The application has to be initialized
-
-            $io->write("<info><comment>✔</comment> This application is pristine; proceeding with initialization.</info>");
         }
 
         if($migrate) {
@@ -198,6 +200,12 @@ final class ScriptHandler {
         }
 
         if($initialize) {
+
+            # The BootCampStatus table is not found
+            # The application has to be initialized
+
+            $io->write("<info><comment>✔</comment> This application is uninitialized; proceeding with initialization.</info>");
+
             if($configinithandlerServiceId) {
                 #
                 # Initialize config
