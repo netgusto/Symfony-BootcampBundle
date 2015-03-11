@@ -1,6 +1,6 @@
 {
     "name": "symfony/bootcamp-bundle",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "type": "symfony-bundle",
     "description": "Symfony2 BootCamp Bundle",
     "keywords": ["symfony", "bootcamp", "paas", "heroku", "scalingo"],
@@ -17,7 +17,7 @@
         "symfony/framework-bundle": ">=2.4",
         "doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
-        "brianium/habitat": ">=v1.0.0"
+        "brianium/habitat": ">=1.0.0"
     },
     "require-dev": {
     },

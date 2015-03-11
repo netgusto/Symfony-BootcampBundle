@@ -170,11 +170,13 @@ final class ScriptHandler {
 
                 $initialize = false;
 
+                $currentversion = $versions[array_pop(array_keys($version))];
+
                 if(!in_array($appversion, $versions)) {
-                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $versions[0]->getConfiguredVersion() . "), but current version is different (version: " . $appversion . "). Application will be migrated, but not initialized.</info>");
+                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $currentversion->getConfiguredVersion() . "), but packaged version is different (version: " . $appversion . "). Application will be migrated, but not initialized.</info>");
                 } else {
                     $migrate = false;
-                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $versions[0]->getConfiguredVersion() . "); database will not be touched.</info>");
+                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $currentversion->getConfiguredVersion() . "); database will not be touched.</info>");
                 }
             }
         } else {
@@ -243,20 +245,20 @@ final class ScriptHandler {
 
                 $io->write("<info><comment>✔</comment> Default user created (username='" . self::specialColor2($userinitusername) . "', password='" . self::specialColor2($userinitpassword) . "')</info>");
             }
+
+            #
+            # Set configured version
+            #
+
+            $io->write(self::formatHeader("▶ Mark application as configured"));
+
+            $bootCampStatus = new BootCampStatus();
+            $bootCampStatus->setConfiguredVersion($appversion);
+            $em->persist($bootCampStatus);
+            $em->flush();
+
+            $io->write("<info><comment>✔</comment> Application marked as configured width version " . $appversion . ".</info>");
         }
-
-        #
-        # Set configured version
-        #
-
-        $io->write(self::formatHeader("▶ Mark application as configured"));
-
-        $bootCampStatus = new BootCampStatus();
-        $bootCampStatus->setConfiguredVersion($appversion);
-        $em->persist($bootCampStatus);
-        $em->flush();
-
-        $io->write("<info><comment>✔</comment> Application marked as configured width version " . $appversion . ".</info>");
 
         /*
         #
