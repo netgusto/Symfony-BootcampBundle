@@ -158,6 +158,9 @@ final class ScriptHandler {
             }
         }
 
+        $migrate = true;
+        $initialize = true;
+
         if($bootCampStatusTableFound) {
             # The BootCampStatus table is found
             # Check if the configured version is equal to the current app version
@@ -165,8 +168,14 @@ final class ScriptHandler {
             $versions = $em->getRepository('SymfonyBootCampBundle:BootCampStatus')->findAll();
             if(count($versions) > 0) {
 
-                # TODO: trigger update process if configured version is different of current version
-                $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $versions[0]->getConfiguredVersion() . "); database will not be touched.</info>");
+                $initialize = false;
+
+                if(!in_array($appversion, $versions)) {
+                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $versions[0]->getConfiguredVersion() . "), but current version is different (version: " . $appversion . "). Application will be migrated, but not initialized.</info>");
+                } else {
+                    $migrate = false;
+                    $io->write("<info><comment>✔</comment> The application is already initialized (version: " . $versions[0]->getConfiguredVersion() . "); database will not be touched.</info>");
+                }
             }
         } else {
 
@@ -174,7 +183,9 @@ final class ScriptHandler {
             # The application has to be initialized
 
             $io->write("<info><comment>✔</comment> This application is pristine; proceeding with initialization.</info>");
+        }
 
+        if($migrate) {
             #
             # Migrate database
             #
@@ -182,7 +193,9 @@ final class ScriptHandler {
             $io->write(self::formatHeader("▶ Migrate database"));
             self::migrateDatabase($io, $kernel, $dbal);
             $io->write("<info><comment>✔</comment> Database migrated.</info>");
+        }
 
+        if($initialize) {
             if($configinithandlerServiceId) {
                 #
                 # Initialize config
@@ -230,21 +243,22 @@ final class ScriptHandler {
 
                 $io->write("<info><comment>✔</comment> Default user created (username='" . self::specialColor2($userinitusername) . "', password='" . self::specialColor2($userinitpassword) . "')</info>");
             }
-
-            #
-            # Set configured version
-            #
-
-            $io->write(self::formatHeader("▶ Mark application as configured"));
-
-            $bootCampStatus = new BootCampStatus();
-            $bootCampStatus->setConfiguredVersion($appversion);
-            $em->persist($bootCampStatus);
-            $em->flush();
-
-            $io->write("<info><comment>✔</comment> Application marked as configured.</info>");
         }
 
+        #
+        # Set configured version
+        #
+
+        $io->write(self::formatHeader("▶ Mark application as configured"));
+
+        $bootCampStatus = new BootCampStatus();
+        $bootCampStatus->setConfiguredVersion($appversion);
+        $em->persist($bootCampStatus);
+        $em->flush();
+
+        $io->write("<info><comment>✔</comment> Application marked as configured width version " . $appversion . ".</info>");
+
+        /*
         #
         # Dumping assets
         #
@@ -255,6 +269,7 @@ final class ScriptHandler {
 
         $io->write("<info><comment>✔</comment> Web assets compiled.</info>");
         $io->write('');
+        */
 
         $message = sprintf('BootCamp: %s %s is initialized.', $appname, $appversion);
         $io->write("<info><comment>✔</comment> " . $message . "</info>");
