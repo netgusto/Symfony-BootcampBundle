@@ -172,7 +172,7 @@ final class ScriptHandler {
                 $alreadyconfiguredthisversion = false;
 
                 $versionkeys = array_keys($versions);
-                $lastkey = array_pop($versionkeys)
+                $lastkey = array_pop($versionkeys);
                 $currentversion = $versions[$lastkey];
 
                 foreach($versions as $version) {
