@@ -160,6 +160,7 @@ final class ScriptHandler {
 
         $migrate = true;
         $initialize = true;
+        $alreadyconfiguredthisversion = false;
 
         if($bootCampStatusTableFound) {
             # The BootCampStatus table is found
@@ -169,7 +170,6 @@ final class ScriptHandler {
             if(count($versions) > 0) {
 
                 $initialize = false;
-                $alreadyconfiguredthisversion = false;
 
                 $versionkeys = array_keys($versions);
                 $lastkey = array_pop($versionkeys);
@@ -255,7 +255,9 @@ final class ScriptHandler {
 
                 $io->write("<info><comment>✔</comment> Default user created (username='" . self::specialColor2($userinitusername) . "', password='" . self::specialColor2($userinitpassword) . "')</info>");
             }
+        }
 
+        if(!$alreadyconfiguredthisversion) {
             #
             # Set configured version
             #
