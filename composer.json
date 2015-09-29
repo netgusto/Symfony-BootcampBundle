@@ -1,6 +1,6 @@
 {
-    "name": "symfony/bootcamp-bundle",
-    "version": "1.0.9",
+    "name": "netgusto/bootcamp-bundle",
+    "version": "1.0.10",
     "type": "symfony-bundle",
     "description": "Symfony2 BootCamp Bundle",
     "keywords": ["symfony", "bootcamp", "paas", "heroku", "scalingo"],
@@ -24,9 +24,9 @@
     "suggest": {
     },
     "autoload": {
-        "psr-0": { "Symfony\\BootCampBundle": "" }
+        "psr-0": { "Netgusto\\BootCampBundle": "" }
     },
-    "target-dir": "Symfony/BootCampBundle",
+    "target-dir": "Netgusto/BootCampBundle",
     "extra": {
     }
 }
