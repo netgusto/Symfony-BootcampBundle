@@ -16,7 +16,7 @@ class BootCampKernel extends SymfonyKernel {
     public function registerBundles() {
 
         $bundles = array(
-            new \Netgusto\BootCampBundle\SymfonyBootCampBundle(),
+            new \Netgusto\BootCampBundle\NetgustoBootCampBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );

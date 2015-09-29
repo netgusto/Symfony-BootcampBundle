@@ -1,6 +1,6 @@
 {
     "name": "netgusto/bootcamp-bundle",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "type": "symfony-bundle",
     "description": "Symfony2 BootCamp Bundle",
     "keywords": ["symfony", "bootcamp", "paas", "heroku", "scalingo"],
