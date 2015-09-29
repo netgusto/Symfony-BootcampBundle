@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\BootCampBundle\Helper;
+namespace Netgusto\BootCampBundle\Helper;
 
 use Doctrine\DBAL\DriverManager,
     Doctrine\DBAL\Connection;

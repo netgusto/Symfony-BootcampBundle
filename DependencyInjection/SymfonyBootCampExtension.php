@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\BootCampBundle\DependencyInjection;
+namespace Netgusto\BootCampBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder,
     Symfony\Component\Config\FileLocator,
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder,
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class SymfonyBootCampExtension extends Extension implements PrependExtensionInterface
+class NetgustoBootCampExtension extends Extension implements PrependExtensionInterface
 {
     public function prepend(ContainerBuilder $container) {
 

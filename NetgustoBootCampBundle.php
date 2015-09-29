@@ -1,10 +1,10 @@
 <?php
 
-namespace Symfony\BootCampBundle;
+namespace Netgusto\BootCampBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SymfonyBootCampBundle extends Bundle {
+class NetgustoBootCampBundle extends Bundle {
 
     protected $initializing = false;
     

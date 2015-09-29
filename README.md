@@ -1,7 +1,7 @@
 > composer.json:
 
     "require": {
-        "symfony/bootcamp-bundle": "1.0.1",
+        "netgusto/bootcamp-bundle": "1.0.1",
         "brianium/habitat": "v1.0.0",
         "doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
@@ -34,7 +34,7 @@
 > app/AppKernel.php:
 
     new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-    new Symfony\BootCampBundle\SymfonyBootCampBundle(),
+    new Netgusto\BootCampBundle\NetgustoBootCampBundle(),
 
 > app/config/config_bootcamp.yml:
 
@@ -106,7 +106,7 @@
         public function up(Schema $schema) {
 
             #######################################################################
-            # Symfony\BootCampBundle\Entity\BootCampStatus
+            # Netgusto\BootCampBundle\Entity\BootCampStatus
             #######################################################################
 
             $bootcampstatus = $schema->createTable('BootCampStatus');
@@ -120,7 +120,7 @@
             $bootcampstatus->setPrimaryKey(array('id'));
 
             #######################################################################
-            # Symfony\BootCampBundle\Entity\ConfigContainer
+            # Netgusto\BootCampBundle\Entity\ConfigContainer
             #######################################################################
 
             $configcontainer = $schema->createTable('ConfigContainer');
@@ -281,7 +281,7 @@
 
     use Doctrine\ORM\EntityManager;
 
-    use Symfony\BootCampBundle\InitHandler\ConfigInitHandlerInterface;
+    use Netgusto\BootCampBundle\InitHandler\ConfigInitHandlerInterface;
 
     use AppName\ModelBundle\Entity\ConfigContainer;
 
@@ -315,7 +315,7 @@
 
     use Doctrine\ORM\EntityManager;
 
-    use Symfony\BootCampBundle\InitHandler\UserInitHandlerInterface;
+    use Netgusto\BootCampBundle\InitHandler\UserInitHandlerInterface;
 
     use AppName\ModelBundle\Entity\User;
 
@@ -358,7 +358,7 @@
     
     <?php
 
-    use Symfony\BootCampBundle\Kernel\BootCampKernel as BaseBootCampKernel;
+    use Netgusto\BootCampBundle\Kernel\BootCampKernel as BaseBootCampKernel;
 
     class BootCampKernel extends BaseBootCampKernel {
         
@@ -377,8 +377,8 @@
     imports:
         # BootCamp
         - { resource: config_bootcamp.yml }
-        - { resource: @SymfonyBootCampBundle/ParameterProcessor/Environment.php }
-        - { resource: @SymfonyBootCampBundle/ParameterProcessor/Database.php }
+        - { resource: @NetgustoBootCampBundle/ParameterProcessor/Environment.php }
+        - { resource: @NetgustoBootCampBundle/ParameterProcessor/Database.php }
         # /BootCamp
 
         - { resource: security.yml }

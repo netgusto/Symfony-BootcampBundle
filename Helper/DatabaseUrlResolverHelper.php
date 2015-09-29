@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\BootCampBundle\Helper;
+namespace Netgusto\BootCampBundle\Helper;
 
 /*
 The MIT License (MIT)
@@ -112,4 +112,4 @@ class DatabaseUrlResolverHelper {
         }
         return $parameters;
     }
-} 
+}

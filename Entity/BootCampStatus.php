@@ -1,9 +1,9 @@
 <?php
 
-namespace Symfony\BootCampBundle\Entity;
+namespace Netgusto\BootCampBundle\Entity;
 
 class BootCampStatus {
-    
+
     /**
      * @var integer
      */
@@ -14,7 +14,7 @@ class BootCampStatus {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -37,7 +37,7 @@ class BootCampStatus {
     /**
      * Get configuredversion
      *
-     * @return string 
+     * @return string
      */
     public function getConfiguredversion()
     {

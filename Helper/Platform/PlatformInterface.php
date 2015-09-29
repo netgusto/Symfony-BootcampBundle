@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\BootCampBundle\Helper\Platform;
+namespace Netgusto\BootCampBundle\Helper\Platform;
 
 interface PlatformInterface {
     public function getPlatformName();

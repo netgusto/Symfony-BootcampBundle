@@ -1,6 +1,6 @@
 <?php
 
-use Symfony\BootCampBundle\Helper\DatabaseUrlResolverHelper;
+use Netgusto\BootCampBundle\Helper\DatabaseUrlResolverHelper;
 
 $_bootdb = function($container) {
 

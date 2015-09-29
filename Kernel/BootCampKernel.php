@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\BootCampBundle\Kernel;
+namespace Netgusto\BootCampBundle\Kernel;
 
 use Symfony\Component\HttpKernel\Kernel as SymfonyKernel,
     Symfony\Component\Config\Loader\LoaderInterface;
@@ -16,7 +16,7 @@ class BootCampKernel extends SymfonyKernel {
     public function registerBundles() {
 
         $bundles = array(
-            new \Symfony\BootCampBundle\SymfonyBootCampBundle(),
+            new \Netgusto\BootCampBundle\SymfonyBootCampBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );

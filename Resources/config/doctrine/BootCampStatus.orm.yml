@@ -1,4 +1,4 @@
-Symfony\BootCampBundle\Entity\BootCampStatus:
+Netgusto\BootCampBundle\Entity\BootCampStatus:
     type: entity
     table: ~
     fields:

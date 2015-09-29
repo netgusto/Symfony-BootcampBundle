@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\BootCampBundle\Composer;
+namespace Netgusto\BootCampBundle\Composer;
 
 use Composer\Script\CommandEvent,
     Composer\IO\IOInterface as ComposerIOInterface;
@@ -24,15 +24,15 @@ use Doctrine\DBAL\Connection as DBALConnection,
 
 use Symfony\Bundle\AsseticBundle\Command\DumpCommand;
 
-use Symfony\BootCampBundle\Kernel\BootCampKernel,
-    Symfony\BootCampBundle\Helper\DatabaseCreatorHelper,
-    Symfony\BootCampBundle\Helper\PlatformDetectorHelper,
-    Symfony\BootCampBundle\Helper\Platform,
-    Symfony\BootCampBundle\Command\DoctrineMigrationCommand,
-    Symfony\BootCampBundle\InitHandler\UserInitHandlerInterface,
-    Symfony\BootCampBundle\InitHandler\ConfigInitHandlerInterface,
-    Symfony\BootCampBundle\Entity\ConfigContainer,
-    Symfony\BootCampBundle\Entity\BootCampStatus;
+use Netgusto\BootCampBundle\Kernel\BootCampKernel,
+    Netgusto\BootCampBundle\Helper\DatabaseCreatorHelper,
+    Netgusto\BootCampBundle\Helper\PlatformDetectorHelper,
+    Netgusto\BootCampBundle\Helper\Platform,
+    Netgusto\BootCampBundle\Command\DoctrineMigrationCommand,
+    Netgusto\BootCampBundle\InitHandler\UserInitHandlerInterface,
+    Netgusto\BootCampBundle\InitHandler\ConfigInitHandlerInterface,
+    Netgusto\BootCampBundle\Entity\ConfigContainer,
+    Netgusto\BootCampBundle\Entity\BootCampStatus;
 
 
 final class ScriptHandler {
@@ -42,7 +42,7 @@ final class ScriptHandler {
     const DIAG_UNKNOWNSTATUS = 'DIAG_UNKNOWNSTATUS';
 
     public static function install(CommandEvent $event) {
-        
+
         $io = $event->getIO();
 
         # Building and booting the Kernel
@@ -90,7 +90,7 @@ final class ScriptHandler {
         }
 
         # Check if sqlite is used on a Paas Platform
-        
+
         if(
             $container->getParameter('database_driver') === 'pdo_sqlite' &&
             !$platform->isLocalFileStoragePersistent()
@@ -119,7 +119,7 @@ final class ScriptHandler {
                 }
 
                 case self::DIAG_DBMISSING: {
-                    
+
                     if($io->askConfirmation('<question>Database connection is OK, but the database is missing. Should we try to create it for you ?</question> [Y/n] ', TRUE) === FALSE) {
                         throw new \RuntimeException("Application is not initialized. Exiting.");
                     } else {
@@ -148,7 +148,7 @@ final class ScriptHandler {
         $io->write(self::formatHeader("ᐅ Check: pristineness"));
 
         # Check if version already configured, and if yes, if we need an upgrade
-        $bootcampStatusTableName = $em->getClassMetadata('SymfonyBootCampBundle:BootCampStatus')->getTableName();
+        $bootcampStatusTableName = $em->getClassMetadata('NetgustoBootCampBundle:BootCampStatus')->getTableName();
         $bootCampStatusTableFound = false;
 
         foreach($dbal->getSchemaManager()->listTables() as $table) {
@@ -165,8 +165,8 @@ final class ScriptHandler {
         if($bootCampStatusTableFound) {
             # The BootCampStatus table is found
             # Check if the configured version is equal to the current app version
-         
-            $versions = $em->getRepository('SymfonyBootCampBundle:BootCampStatus')->findAll();
+
+            $versions = $em->getRepository('NetgustoBootCampBundle:BootCampStatus')->findAll();
             if(count($versions) > 0) {
 
                 $initialize = false;
@@ -222,7 +222,7 @@ final class ScriptHandler {
                 $configinithandlerService = $container->get($configinithandlerServiceId);
 
                 if(!$configinithandlerService instanceOf ConfigInitHandlerInterface) {
-                    throw new \RuntimeException('Bootcamp: Service ' . $configinithandlerServiceId . ' must implement Symfony\BootCampBundle\InitHandler\ConfigInitHandlerInterface.');
+                    throw new \RuntimeException('Bootcamp: Service ' . $configinithandlerServiceId . ' must implement Netgusto\BootCampBundle\InitHandler\ConfigInitHandlerInterface.');
                 }
 
                 $config = $configinithandlerService->createAndPersistConfig();
@@ -245,7 +245,7 @@ final class ScriptHandler {
                 $userinithandlerService = $container->get($userinithandlerServiceId);
 
                 if(!$userinithandlerService instanceOf UserInitHandlerInterface) {
-                    throw new \RuntimeException('Bootcamp: Service ' . $userinithandlerServiceId . ' must implement Symfony\BootCampBundle\InitHandler\UserInitHandlerInterface.');
+                    throw new \RuntimeException('Bootcamp: Service ' . $userinithandlerServiceId . ' must implement Netgusto\BootCampBundle\InitHandler\UserInitHandlerInterface.');
                 }
 
                 $user = $userinithandlerService->createAndPersistUser(
@@ -315,7 +315,7 @@ final class ScriptHandler {
             require_once $appBootCampKernel;
             $kernelClass = '\BootCampKernel';   # Global namespace
         } else {
-            $kernelClass = '\Symfony\BootCampBundle\Kernel\BootCampKernel';    # Current namespace
+            $kernelClass = '\Netgusto\BootCampBundle\Kernel\BootCampKernel';    # Current namespace
         }
 
         $kernel = new $kernelClass(          # Global namespace
@@ -340,7 +340,7 @@ final class ScriptHandler {
 
         if($e instanceOf \PDOException) {
             $message = $e->getMessage();
-            
+
             if(stripos($message, 'Access denied') !== FALSE) {
                 return self::DIAG_DBNOCONNECTION;
             } else if(
@@ -359,7 +359,7 @@ final class ScriptHandler {
     }
 
     protected static function migrateDatabase(ComposerIOInterface $io, KernelInterface $kernel, DBALConnection $connection) {
-        
+
         # This command is executed in the bootcamp environment
 
         $command = new DoctrineMigrationCommand();

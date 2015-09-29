@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\BootCampBundle\InitHandler;
+namespace Netgusto\BootCampBundle\InitHandler;
 
 interface ConfigInitHandlerInterface {
     public function createAndPersistConfig();
